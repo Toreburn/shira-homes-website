@@ -199,6 +199,49 @@
                 ></div
               ></div
             ></div
+            <div class="home-testimonials section-container">
+              <div class="testimonial-container">
+                  <h2 class="testimonial-heading">What Our Customers Say</h2>
+                  
+                  <div class="testimonial-carousel">
+                      <button class="carousel-button prev-button" aria-label="Previous testimonial">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M15 18l-6-6 6-6"/>
+                          </svg>
+                      </button>
+
+                      <div class="testimonial-content">
+                          <div class="testimonial-stars">
+                              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor">
+                                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                              </svg>
+                              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor">
+                                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                              </svg>
+                              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor">
+                                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                              </svg>
+                              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor">
+                                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                              </svg>
+                              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor">
+                                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                              </svg>
+                          </div>
+                          <p class="testimonial-text"></p>
+                          <p class="testimonial-author"></p>
+                      </div>
+
+                      <button class="carousel-button next-button" aria-label="Next testimonial">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M9 18l6-6-6-6"/>
+                          </svg>
+                      </button>
+                  </div>
+
+                  <div class="carousel-dots"></div>
+              </div>
+          </div>
           ><div id="contact" class="home-banner section-container"
             ><div class="home-max-width2 max-content-container"
               ><span class="home-text16">What are you waiting for?</span
@@ -369,6 +412,70 @@
         };
 
         runAllScripts();
+        const testimonials = [
+        {
+            text: "Working with Shira Homes was so great, and the result was amazing! Ben and his crew were incredibly helpful in achieving our dream outcome!",
+            author: "Louis"
+        },
+        {
+            text: "Ben's communication was great! I got a quote quickly and paid exactly what was quoted. The technicians were polite and professional. Highly recommend!",
+            author: "Julie"
+        },
+        {
+            text: "Ben and his incredible team just wrapped up remodeling our kitchen, and we couldn't be more thrilled! The cabinets are exceptional quality, and the increased storage has made a world of difference... Highly recommend Shira Homes!",
+            author: "Shafi"
+        },
+        {
+            text: "Excellent quality, great customer service, and prompt delivery. I highly recommend Ben.",
+            author: "Felipe"
+        },
+        {
+            text: "We had a wonderful kitchen cabinet installation experience with Shira Homes. Ben is very detail-oriented, patient, and always on time. The installation team was respectful, and their work was meticulous... Highly recommend Shira Homes for quality cabinetry!",
+            author: "Anonymous"
+        }
+    ];
+
+    let currentSlide = 0;
+    const textElement = document.querySelector('.testimonial-text');
+    const authorElement = document.querySelector('.testimonial-author');
+    const dotsContainer = document.querySelector('.carousel-dots');
+    
+    function updateSlide() {
+        textElement.textContent = testimonials[currentSlide].text;
+        authorElement.textContent = `- ${testimonials[currentSlide].author}`;
+        
+        document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentSlide);
+        });
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % testimonials.length;
+        updateSlide();
+    }
+
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + testimonials.length) % testimonials.length;
+        updateSlide();
+    }
+
+    testimonials.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.className = `carousel-dot ${index === 0 ? 'active' : ''}`;
+        dot.setAttribute('aria-label', `Go to testimonial ${index + 1}`);
+        dot.addEventListener('click', () => {
+            currentSlide = index;
+            updateSlide();
+        });
+        dotsContainer.appendChild(dot);
+    });
+
+    document.querySelector('.prev-button').addEventListener('click', prevSlide);
+    document.querySelector('.next-button').addEventListener('click', nextSlide);
+
+    setInterval(nextSlide, 8000);
+
+    updateSlide();
       };
     </script></body
   ></html
